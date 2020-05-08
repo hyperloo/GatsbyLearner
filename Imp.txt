@@ -1,0 +1,37 @@
+. gatsby-link -> For Link Tag as in regular React
+
+. gatsby-plugin-react-helmet, react-helmet -> For Head Information In HTML.
+
+. gatsby-source-filesystem -> helps to get data from our local filesystem
+
+. gatsby-transformer-remark -> transform posts written in .md (markdown type) to HTML fro rendering
+
+. gatsby-plugin-catch-links -> Intercept local links from markdown and other non reactive links to reload the page by pushing it to the client-side rendering 
+
+. gatsby-plugin-sass -> to enable sass usage in gatsby
+
+. node-sass -> compile sass to css
+
+. cssName.module.scss 'or' cssName.module.css -> is used to dynamically assign the class name locally instead of globally to the file
+    - we import the module.scss/module.css as some file like "headerStyle" and all the class in it are props to it.
+    - classes are invoked dynamically like '.link' class is used as className="headerStyle.link" 
+    - classes with name "nav-item" is invoked in camel case like className="headerStyle.navItem"
+
+. useStaticQuery() invoked from gatsby is used to query our graphql API
+    - graphql is a function invoked from gatsby is called first which sets the "format" ot the graphql query and is invoked using "TAGGED TEMPLATE from "" LITERALS" like " graphql`query inside` "
+    - can find more on "TAGGED TEMPLATE LITERALS" from "https://wesbos.com/tagged-template-literals"
+
+---  . path is builtin node package to preform operation on the path, like in the "absolutePaths" of the "node" in the "gatsby-node.js", basename() is used.
+|
+---  . "slug" is the name extracted from the blog filename, so that the blogs can a dynamic url names 
+ |
+ --> these steps are done to generate slug for each posts i.e. gatsby.md -> gatsby -> blog/gatsby/ (this is url for the blog in browser )
+
+. this generated slug of each blog is used to create dynamic pages using basic template of blog in "./src/template/blog.js" by iterating over all res.data.allMarkdownRemarks.edges 
+    - this generated page is rendered inside blog Template as the component property inside createPage function is "blogTemplate" (path to template/blog.js)
+    - it has the url of /blog/${edge.node.fields.slug}
+    - and every blog has an unique property i.e. slug which helps to get info like title,author, date, etc.
+
+. "createNodeField" is used to add additional fields eg: field having property the name "slug"  and value of slug(derived from file name)
+
+
